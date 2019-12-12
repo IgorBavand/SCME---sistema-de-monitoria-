@@ -14,7 +14,7 @@ include('conexao/conexao.php');
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 		-->
 		
@@ -52,7 +52,7 @@ include('conexao/conexao.php');
           <div class="card-body">
             <h5 class="card-title text-center">Cadastro</h5>
            
-           <form method="post" action="cadastrar.php">
+           <form method="post" enctype="multipart/form-data" action="cadastrar.php">
 <div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -98,21 +98,21 @@ include('conexao/conexao.php');
 				    <span class="input-group-text fas fa-camera" id="inputGroupFileAddon01"></span>
 				  </div>
 				  <div class="custom-file">
-				    <input type="file" name="foto" class="custom-file-input" id="inputGroupFile01"
+				    <input type="file" name="img1" class="custom-file-input" id="inputGroupFile01"
 				      aria-describedby="inputGroupFileAddon01">
 				    <label class="custom-file-label" for="inputGroupFile01">Selecione uma imagem</label>
 				  </div>
 				</div>
 					
 					<div class="form-group">
-						<input type="submit" value="Cadastrar" class="btn btn-lg btn-primary btn-block text-uppercase">
+						<input type="submit" style="margin-top: 4%" value="Cadastrar" class="btn btn-lg btn-primary btn-block text-uppercase">
 					</div>
 				</form>
 			</div>
 			<div class="card-footer">
 				
 				<div id="menu" class="d-flex justify-content-center links">
-					Já tem conta?  <a href="index.php">ENTRE</a>
+					<a href="index.php">Já tem conta? Entre aqui</a>
 				</div>
 				
 			</div>
