@@ -1,3 +1,17 @@
+<?php 
+include('conexao/conexao.php');
+
+
+$query = "select * from monitoria";
+
+$result = mysqli_query($conexao, $query);
+
+$row = mysqli_num_rows($result);
+
+ 
+
+ ?>
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -7,7 +21,7 @@
 <html lang="en">
 <?php session_start(); ?>
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" lang="pt-br">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
@@ -168,35 +182,44 @@ $("#show-sidebar").click(function() {
       <h2 id="titulo">AULAS E MONITORIAS</h2>
 
       <hr>
-      <?php for($i = 0;$i <= 10;$i++){ ?>
-      <div class="row d-flex justify-content-center border border-dark" id="posts">
-        <div class="row d-flex justify-content-center form-group col-md-12">
-          <div class="user-pics float-left" id="posts">
-          	<ul id="desc">
-          <img style="margin-top: 5%; float: left; width: 100px; height: 20px%" class="img-responsive img-rounded" src="img/<?php echo $_SESSION['foto'] ?>"
+      <?php 
+      while($dados = mysqli_fetch_assoc($result)){
+      ?>
+      <div class="" id="posts">
+        <div class="row form-group col-md-12">
+         
+          	<div id="desc" class="text-left float-left " style="margin-left: 5%; margin-top: 3%;">
+          		
+          <img style="margin-top: 5%; width: 100px; height: 20px%; " class="img-responsive float-left img-rounded img-thumbnail" src="img/<?php echo $dados['foto_tutor'] ?>"
             alt="User picture">
-            </ul>
-      
-			<div style="margin-top: 1px" class="text-left" id="desc">
-        			<p>Linguagens de programaçao</p>
-        			<p id="detalhes">POO com Python</p>    		
-        			<p>Laboratŕio 1</p>
-        			<p>15/09/2020 - 08:00</p>
-        		<div style="margin-top: 5%; ">
-				<a class="btn btn-primary float-none" style="font-size: 13px;" href="#">Agendar</a>            	
-            </div> 
-            </div> 
-                   
         
+		
+            </div> 
+       <div id="desc" class="text-left float-left" style="margin-left: 5%; margin-top: 3%; width: 30%;"> 
+        			<p> <?php echo $dados['nome_tutor']; ?> </p>
+        			<p> <?php echo $dados['nome_disciplina']; ?> </p>    		
+        <!--33-->		<p><?php echo $dados['assunto']; ?></p>
+        			
+        		
         </div>
 
+        <div id="desc" class="text-left float-left " style="margin-left: 5%; margin-top: 3%; width: 15%;">     		
+        			<p><?php echo $dados['local']; ?> - Bloco <?php echo $dados['bloco'] ?></p>
+        			<p><?php echo $dados['data']; ?> - <?php echo $dados['horario']; ?></p>
+        		
         </div>
-       
+
+        <div id="desc" class="text-left float-left" style="margin-left: 5%"> 
+        			
+        			<div style="margin-top: 5%; ">
+        				<a class="btn btn-primary float-rigth" style="font-size: 13px; margin-top: 50%" href="#">Agendar</a> 
+            </div> 
+        </div>
       </div>
-  <?php } ?>
-     
+  
+     <hr>
     </div>
-
+<?php } ?>
   </main>
   <!-- page-content" -->
 </div>

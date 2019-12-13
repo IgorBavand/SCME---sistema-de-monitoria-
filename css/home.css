@@ -480,15 +480,20 @@ body {
 }
 #desc{
   float: left; 
-  margin-left: 5%;
+  margin-left: 5%;      
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: ;
   margin-top: 2%;
   font-family: Times, Times New Roman, serif;
+  color: #000099  ;
 }#posts{
    margin-top: 2%;
 }#titulo{
   font-family: Times, Times New Roman, serif;
+  color: #6699FF;
 }#detalhes{
   margin-top: 0px; 
+}
+body{
+  background-color: #FFFF;
 }

@@ -24,6 +24,7 @@ if($row == 1){
 $_SESSION['nome'] = $dados['nome'];
 $_SESSION['curso'] = $dados['curso'];
 $_SESSION['foto'] = $dados['imagem'];
+$_SESSION['id'] = $dados['id'];
  } 
 	$_SESSION['usuario'] = $usuario;
 	header('Location: home.php');
