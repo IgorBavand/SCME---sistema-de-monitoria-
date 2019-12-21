@@ -87,8 +87,9 @@ margin-left: 4px;
 }
 
 body {
-  background: #007bff;
-  background: linear-gradient(to right, #0062E6, #33AEFF);
+ /* background: linear-gradient(to right, #0062E6, #33AEFF);
+ */
+
 }
 
 .card-signin {
@@ -215,4 +216,6 @@ body {
   .form-label-group input:-ms-input-placeholder {
     color: #777;
   }
+}#div-titulo{
+  color: red;
 }

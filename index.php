@@ -14,18 +14,21 @@ include('conexao/conexao.php');
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css"> 
 	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 		-->
-<!--
+
 		<script
 			  src="https://code.jquery.com/jquery-1.10.2.min.js"
 			  integrity="sha256-C6CB9UYIS9UJeqinPHWTHVqh/E1uhG5Twh+Y5qFQmYg="
 			  crossorigin="anonymous"></script>
 
 			  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js">
-		-->
 		
+
+<link rel="stylesheet" type="text/css" href="toastr/toastr.min.css">
+  <script type="text/javascript" src="toastr/toastr.min.js"></script>
+		<!--
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$("#menu a").click(function( e ){
@@ -35,35 +38,39 @@ include('conexao/conexao.php');
 				});
 			});
 		</script>
+	-->
+		<style type="text/css">
+			body{
+				background-image: 
+				url(fundo.png);
+				background-size: 70px;
+			}
+		</style>
 	</head>
-	<body>
+	<body background="css/fundo.png">
+		
 
 		<div class="container">
-			<div class="text-center border" style="margin-top: 2%">
+			<div class="text-center border" style="margin-top: 2%; background-color: #330066">
 			<h1 style="color: white">Bem-Vindo ao SCME</h1>
 			<p style="color: white; font-size: 15px; ">Sistema de Controle de Monitoria e Estudos</p>
 		</div>
-		<?php
-			if (isset($_SESSION['nao_autenticado'])) {
-		?>
-		<div class="alert alert-warning">
-			Erro: usuário e/ou senha inválido(s)
-		</div>
-	
-	<?php
-	unset($_SESSION['nao_autenticado']);
-	 } ?>
+		
+		  <?php if(isset($_SESSION['nao_autenticado'])){ ?>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          toastr["warning"]("Usuário e/ou senha incorreto(s).","Erro");
+        });
+      </script>
+    <?php unset($_SESSION['nao_autenticado']); } ?>
 
-	 <?php
-	if(isset($_SESSION['cadastro'])){
-	?>
-	<div class="alert alert-success">
-		Cadastro realizado com sucesso!
-		</div>
-	<?php
-	}
-	unset($_SESSION['cadastro']);
-	?>
+	<?php if(isset($_SESSION['cadastro'])){ ?>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          toastr["success"]("Usuário cadastrado com sucesso.","Cadastrado");
+        });
+      </script>
+    <?php unset($_SESSION['cadastro']); } ?>
 	
 	<div id="conteudo" class="d-flex justify-content-center h-100" style="margin-top: 3px">
 		

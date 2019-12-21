@@ -4,6 +4,21 @@ session_start();
 include("conexao/conexao.php");
 
 
+$nome = $_POST['nome'];
+$usuario = $_POST['usuario'];
+$senha = md5($_POST['senha']);
+$curso = $_POST['curso'];
+
+
+
+$consulta = "select * from usuario where usuario = '{$usuario}'";
+
+$verificacao = mysqli_query($conexao, $consulta);
+
+$row = mysqli_num_rows($verificacao);
+
+//echo $row;
+
 if(isset($_FILES['img1'])){
     $extensao = strtolower(substr($_FILES['img1']['name'], -4));
     
@@ -15,18 +30,18 @@ if(isset($_FILES['img1'])){
 }
 
 
-$nome = $_POST['nome'];
-$usuario = $_POST['usuario'];
-$senha = md5($_POST['senha']);
-$curso = $_POST['curso'];
-
+if($row == 1){
+	$_SESSION['ja_cadastrado'] = true;
+	header('Location: cadastro.php');
+	exit();
+	//echo $row;
+}else{	
 $query = "insert into usuario (nome, usuario, senha, curso, imagem) values ('{$nome}', '{$usuario}', '{$senha}', '{$curso}', '{$novo_nome}')";
-
 $result = mysqli_query($conexao,$query); 
-
-
 $_SESSION['cadastro'] = false;
+//echo $row;
 header('Location: index.php');
 exit();
+}
 
 ?>

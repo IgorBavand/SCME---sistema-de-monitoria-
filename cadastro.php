@@ -22,20 +22,22 @@ include('conexao/conexao.php');
 		
 	</head>
 	<body>
+	
 
 		<div class="container">
 			<div class="text-center border" style="margin-top: 2%">
 			<h1 style="color: white">Bem-Vindo ao SCME</h1>
 			<p style="color: white; font-size: 15px; ">Sistema de Controle de Monitoria e Estudos</p>
 		</div>
-		<?php
-			if (isset($_SESSION['nao_autenticado'])) {
+			<?php
+			if (isset($_SESSION['ja_cadastrado'])) {
 		?>
 		<div class="alert alert-warning">
-			Erro: usuário e/ou senha inválido(s)
+			Erro: usuário já cadastrado! 
 		</div>
+	
 	<?php
-	unset($_SESSION['nao_autenticado']);
+	unset($_SESSION['ja_cadastrado']);
 	 } ?>
 	
 	<div id="conteudo" class="d-flex justify-content-center h-100" style="margin-top: 3px">

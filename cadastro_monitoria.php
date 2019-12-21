@@ -24,7 +24,7 @@ $horario = $_POST['horario'];
 $query = "insert into monitoria (id_tutor, foto_tutor, nome_disciplina, assunto, nome_tutor, local, bloco, data, horario) values ('{$id_tutor}', '{$foto_tutor}', '{$nome_disciplina}', '{$assunto}', '{$nome_tutor}', '{$local}', '{$bloco}', '{$data}', '{$horario}')";
 
 $result = mysqli_query($conexao,$query);
-
+$_SESSION['cad_monitoria'] = true;
 header('Location: home.php');
 exit();
 
