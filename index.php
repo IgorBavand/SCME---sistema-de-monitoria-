@@ -5,7 +5,7 @@ include('conexao/conexao.php');
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>SCME - Sistema UFC</title>
+		<title>SCME - Sistema</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -42,18 +42,19 @@ include('conexao/conexao.php');
 		<style type="text/css">
 			body{
 				background-image: 
-				url(fundo.png);
-				background-size: 70px;
+				url(fundo.jpg);
+				background-size: 150px;
 			}
 		</style>
 	</head>
 	<body background="css/fundo.png">
 		
-
-		<div class="container">
-			<div class="text-center border" style="margin-top: 2%; background-color: #330066">
+	<div class="container">
+			<div class="text-center border" style="margin-top: 2%; background-color: #000099">
 			<h1 style="color: white">Bem-Vindo ao SCME</h1>
+			<div class="border">
 			<p style="color: white; font-size: 15px; ">Sistema de Controle de Monitoria e Estudos</p>
+			</div>		
 		</div>
 		
 		  <?php if(isset($_SESSION['nao_autenticado'])){ ?>
@@ -96,7 +97,7 @@ include('conexao/conexao.php');
 					</div>
 					
 					<div class="form-group">
-						<input type="submit" value="Entrar" class="btn btn-lg btn-primary btn-block text-uppercase">
+						<input type="submit" value="Entrar" class="btn btn-primary btn-block text-uppercase">
 					</div>
 				</form>
 			</div>

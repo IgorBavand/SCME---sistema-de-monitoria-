@@ -1,20 +1,27 @@
 $(function(){
-	//Pesquisar os cursos sem refresh na página
-	$("#busca").keyup(function(){
-		
+	$("#pesquisa").keyup(function(){
+		//Recuperar o valor do campo
 		var pesquisa = $(this).val();
 		
 		//Verificar se há algo digitado
 		if(pesquisa != ''){
 			var dados = {
 				palavra : pesquisa
-			}		
-			$.post("busca.php", dados, function(retorna){
+			}
+			$.post('controller/busca.php', dados, function(retorna){
 				//Mostra dentro da ul os resultado obtidos 
 				$(".resultado").html(retorna);
 			});
 		}else{
-			$(".resultado").html('Nada encontrado');
-		}		
+			var dados = {
+				palavra : pesquisa
+			}
+			$.post('controller/postagens.php', dados, function(retorna){
+				//Mostra dentro da ul os resultado obtidos 
+				$(".resultado").load(retorna);
+			});
+		}
+			
 	});
+		
 });

@@ -1,6 +1,3 @@
-
-
-
 <?php 
 session_start();
 
@@ -150,113 +147,203 @@ include('controller/ver_user_existente');
   
     <div id="conteudo" class="container-fluid">
       
-            
+   
       <div class="resultado">
 
 
-<?php 
+
+<div id="conteudo" class="container-fluid">
+  <?php 
 include('conexao/conexao.php');
-
-
-$query = "select nome_disciplina from disciplina order by nome_disciplina";
+session_start();
+$id_tutor = $_SESSION['id'];
+$query = "select * from monitoria where id_tutor = '{$id_tutor}'";
 
 $result = mysqli_query($conexao, $query);
 
 $row = mysqli_num_rows($result);
 
- 
+// echo $row;
 
  ?>
-<meta charset="utf-8">
-<div id="conteudo" class="container-fluid">
-      <h2 id="titulo">CADASTRAR MONITORIA</h2>
+      <h2 id="titulo">MEU PERFIL</h2>
 
       <hr>
-       <form method="post" action="cadastro_monitoria.php">
-
-
-
-
-<div class="input-group form-group">
         
-    <label for="disciplina"></label>
-     <div class="input-group-prepend">
-              <span class="input-group-text">Selecione a disciplina: <i class=""></i></span>
+        <section id="team" class="pb-5">
+    <div class="container">
+            <div class="row">
+         <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="">
+                    <div class="">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="img/<?php echo $_SESSION['foto'] ?>" alt="card image"></p>
+                                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addUsuarioModal">
+          Mudar foto
+        </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
-    <select class="form-control" id="disciplina" name="disciplina">
-      <?php 
-      while($dados = mysqli_fetch_assoc($result)){
-      ?>
-      <option><?php echo $dados['nome_disciplina']; ?></option>
-    <?php } ?>
-    </select>
-
-          </div>
+            <div class="">
+              <h5 style="font-size: 25px;">Dados pessoais</h5>
+                
 
 
-
-          <div class="input-group form-group">
+                <form method="post" enctype="multipart/form-data" action="controller/atualiza_dados.php">
+<div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fas fa-comments"></i></span>
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
-            <input type="text" name="assunto" class="form-control" placeholder="o que será debatido?">
+            <input type="text" name="nome" value="<?php echo $_SESSION['nome']; ?>" class="form-control" required placeholder="nome completo">
             
           </div>
 
 
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
-            <input type="text" name="local" class="form-control" placeholder="local">
-            
+            <input type="text" value="<?php echo $_SESSION['usuario']; ?>" id="usuario" name="usuario" class="form-control" required placeholder="usuário">     
           </div>
-          
-          <div class="input-group form-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-            </div>
-            <input type="number" name="bloco" class="form-control" placeholder="bloco">
-            
-          </div>
+          <div style="color: red; margin-top: 0%;" class="alerta_user"></div>
+       
 
           <div class="input-group form-group">
             <div class="input-group-prepend">
-              <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+              <span class="input-group-text"><i class="fas fa-book"></i></span>
             </div>
-            <input type="date" name="data" class="form-control" placeholder="data">
-          </div>
-
-
-          <div class="input-group form-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fas fa-clock"></i></span>
-            </div>
-            <input type="text" id="horario" name="horario" class="form-control" placeholder="horário">
+            <input type="text" name="curso" value="<?php echo $_SESSION['curso']; ?>" class="form-control" required placeholder="curso">
             
           </div>
 
 
-      
-          
           <div class="form-group">
-            <input type="submit" style="margin-top: 4%" value="Cadastrar" class="btn btn-lg btn-primary btn-block text-uppercase">
+            <input type="submit" style="margin-top: 2%;" value="Atualizar dados" class="btn btn-outline-success">
           </div>
+          
+
+          <div class="form-group">
+          <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#MudarSenha">
+          Mudar senha
+        </button>
+          </div>
+
+
         </form>
-      <script>
-            jQuery(function($){
-            $("#horario").mask("99:99");
-            
-            });
-        </script>
+
+
+            </div>
+          </div>
+        </div>
+      </section>
 
 
 
+
+
+
+<div id="addUsuarioModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addUsuarioModalLabel">Selecione outra foto</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" enctype="multipart/form-data" action="atualiza_foto.php" id="insert_form">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Nova foto</label>
+                <div class="col-sm-10">
+                  <input style="height: 90%" name="img" type="file" required id="img">
+                </div>
+              </div>
+              
+              <div class="form-group row">
+                <div class="col-sm-10">
+                  <input type="submit" name="CadUser" id="CadUser" value="Cadastrar" class="btn btn-outline-success">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
 
 
 
+
+
+
+<div id="MudarSenha" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addUsuarioModalLabel">Aterar senha</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" enctype="multipart/form-data" action="controller/alterar_senha.php" id="insert_form">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Nova senha</label>
+                <div class="col-sm-10">
+                  <input name="senha" type="password" required id="senha">
+                </div>
+              </div>
+
+               <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Confirmar nova senha</label>
+                <div class="col-sm-10">
+                  <input name="csenha" type="password" required id="csenha">
+                   <div id="res" style="color: red"></div>
+                </div>
+
+              </div>
+
+               <script type="text/javascript">
+            $(function(){
+              $("#csenha").keyup(function(){
+                //Recuperar o valor do campo
+                var csenha = $(this).val();
+                var senha = $("#senha").val();
+                if(csenha != senha){
+                  $("#res").html("As senhas não estão iguais");
+                  $("#botao").html('<input type="submit" name="cadUser" id="cadUser" value="Registrar nova senha" class="btn btn-outline-success" disabled> </input>');
+                }else{
+                  $("#res").html("");
+                  $("#botao").html('<input type="submit" name="cadUser" id="cadUser" value="Registrar nova senha" class="btn btn-outline-success"> </input>');
+                }
+                
+              });
+            });
+          </script>
+              
+              <div class="form-group row">
+                <div class="col-sm-10" id="botao">
+                  <input type="submit" name="CadUser" id="CadUser" value="Registrar nova senha" class="btn btn-outline-success">
+                </div>
+              </div>
+              
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+    </div>
 
 
 

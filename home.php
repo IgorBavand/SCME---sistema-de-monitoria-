@@ -1,29 +1,24 @@
 <?php 
 session_start();
+
 include('conexao/conexao.php');
 include('controller/verifica_login.php');
+include('controller/ver_user_existente');
 
-$query = "select * from monitoria";
 
-$result = mysqli_query($conexao, $query);
-
-$row = mysqli_num_rows($result);
-
- 
 
  ?>
-
+<?php header("Content-type: text/html; charset=utf-8"); ?>
 
 <!DOCTYPE html>
 <html lang="pt-bt">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />   
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
     <title>SCME</title>
-    <script type="text/javascript" src="js/busca.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
@@ -42,75 +37,22 @@ $row = mysqli_num_rows($result);
         crossorigin="anonymous"></script>
     
         
-<script type="text/javascript">
-	jQuery(function ($) {
-
-    $(".sidebar-dropdown > a").click(function() {
-  $(".sidebar-submenu").slideUp(200);
-  if (
-    $(this)
-      .parent()
-      .hasClass("active")
-  ) {
-    $(".sidebar-dropdown").removeClass("active");
-    $(this)
-      .parent()
-      .removeClass("active");
-  } else {
-    $(".sidebar-dropdown").removeClass("active");
-    $(this)
-      .next(".sidebar-submenu")
-      .slideDown(200);
-    $(this)
-      .parent()
-      .addClass("active");
-  }
-});
-
-$("#close-sidebar").click(function() {
-  $(".page-wrapper").removeClass("toggled");
-});
-$("#show-sidebar").click(function() {
-  $(".page-wrapper").addClass("toggled");
-});
-
-
-   
-   
-});
-
-
-
-
-</script>
-
-
-			  
-		
-		
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$("#menu a").click(function( e ){
-					e.preventDefault();
-					var href = $( this ).attr('href');
-					$("#conteudo").load( href +" #conteudo")
-				});
-			});
-		</script>
+<script type="text/javascript" src="js/menu_lateral.js"></script>
+		<!--<script type="text/javascript" src="js/menu.js"></script>-->
 
 
 <link rel="stylesheet" type="text/css" href="toastr/toastr.min.css">
   <script type="text/javascript" src="toastr/toastr.min.js"></script>
-    <script type="text/javascript" src="js/busca.js"></script>
+<script type="text/javascript" src="js/busca.js"></script>
+
+<script type="text/javascript" src="mask/dist/jquery.mask.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 
 
 </head>
 
 <body>
  
-
-
-
 <div class="page-wrapper chiller-theme toggled">
 
   <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
@@ -145,16 +87,24 @@ $("#show-sidebar").click(function() {
       </div>
       <!-- sidebar-search  -->
       <div class="sidebar-menu">
+        <ul>
+        <li>
+            <a href="home.php">
+              <i class="fa fa-home"></i>
+              <span>Home</span>
+            </a>
+          </li>
+        </ul>
       	<div id="menu">
         <ul>
           
           <li class="header-menu">
             <span>Opções</span>
           </li>
-          <li>
-            <a href="home.php">
-              <i class="fa fa-home"></i>
-              <span>Home</span>
+           <li>
+            <a class="btn text-left" data-toggle="modal" data-target="#senha">
+              <i class="fa fa-edit"></i>
+              <span>Editar perfil</span>
             </a>
           </li>
           <li>
@@ -196,52 +146,25 @@ $("#show-sidebar").click(function() {
   <main class="page-content">
   
     <div id="conteudo" class="container-fluid">
-      <h2 id="titulo">AULAS E MONITORIAS</h2>
       
-        
-            <form style="width: 100%;" method="post">
-            <input type="text" name="busca" id="busca" class="form-control search-menu" placeholder="Procure por uma disciplina...">
-
-          </form>
- 
+            <form method="POST" id="form-pesquisa">
+             <h2 id="titulo">AULAS E MONITORIAS</h2>
+              <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input style="width: 40%" type="text" name="pesquisa" id="pesquisa" placeholder="Procure por disciplina...">
+            
+          </div>
+            </form>
       <hr>
-
       <div class="resultado">
-       
-      <?php 
-      while($dados = mysqli_fetch_assoc($result)){
-      ?>
-      <div class="" id="posts">
-        <div class="row form-group col-md-12">
-         
-            <ul>
-          
-<img id="img" class="img-responsive float-left img-rounded img-thumbnail" src="img/<?php echo $dados['foto_tutor'] ?>"
-            alt="User picture">
-<div class="container-fluid float-left" style="width: 70%;">
-            <p id="desc"> <?php echo $dados['nome_tutor']; ?> </p>
-            <p id="desc"> <?php echo $dados['nome_disciplina']; ?> </p>
-            <p id="desc"><?php echo $dados['assunto']; ?></p>
-        		<p id="desc"><?php echo $dados['local']; ?> - Bloco <?php echo $dados['bloco'] ?></p>
-        		<p id="desc" style="font-size: 17px;"><?php echo $dados['data']; ?> - <?php echo $dados['horario']; ?></p>
-        
-			</div>
-        				
-        
-        		</ul>
-        
-        	<a class="btn btn-primary float-none" id="botao" href="controller/cadastrar_agenda.php?agendar=<?php echo $dados['id']; ?>">Agendar</a>
-        
-     
-        </div>
-      </div>
-  
-     <hr>
-     <?php } ?>
+
+       <?php include('controller/postagens.php'); ?> 
     </div>
   </div>
-
-
+      </div>
+  </div>
         <?php if(isset($_SESSION['agendado'])){ ?>
       <script type="text/javascript">
         $(document).ready(function(){
@@ -282,7 +205,37 @@ $("#show-sidebar").click(function() {
 
 
 
-    
+
+<!-- SENHA PARA EDITAR PERFIL -->
+
+    <div id="senha" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addUsuarioModalLabel">Insira sua senha para ter acesso</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="controller/verifica_senha.php" id="insert_form">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Senha:</label>
+                <div class="col-sm-10">
+                  <input style="height: 20px" name="senha" type="password" required id="img">
+                </div>
+              </div>
+              
+              <div class="form-group row">
+                <div class="col-sm-10">
+                  <input type="submit" name="entrar" id="entrar" value="entrar" class="btn btn-outline-success">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 
 </html>

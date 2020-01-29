@@ -7,6 +7,7 @@ include("conexao/conexao.php");
 $nome = $_POST['nome'];
 $usuario = $_POST['usuario'];
 $senha = md5($_POST['senha']);
+$csenha = md5($_POST['csenha']);
 $curso = $_POST['curso'];
 
 
@@ -35,7 +36,13 @@ if($row == 1){
 	header('Location: cadastro.php');
 	exit();
 	//echo $row;
-}else{	
+}else if($senha != $csenha){
+	$_SESSION['senhas_diferentes'] = true;
+	header('Location: cadastro.php');
+	exit();
+}
+
+else{	
 $query = "insert into usuario (nome, usuario, senha, curso, imagem) values ('{$nome}', '{$usuario}', '{$senha}', '{$curso}', '{$novo_nome}')";
 $result = mysqli_query($conexao,$query); 
 $_SESSION['cadastro'] = false;
