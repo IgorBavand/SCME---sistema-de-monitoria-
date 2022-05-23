@@ -9,3 +9,5 @@ Este sistema foi desenvolvido em PHP na disciplina de linguagens de programaçã
 > O arquivo sql deve ser importado após a criação do banco de dados.
 
 > O nome do banco deve ser scme.
+
+> O Mask JS também foi deletado.
